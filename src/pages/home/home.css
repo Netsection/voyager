@@ -1,0 +1,10 @@
+.home {
+    display: flex;
+}
+
+@media screen and (min-width: 200px) {
+    .sidebar{display: none;}
+}
+@media screen and (min-width: 750px) {
+    .sidebar{display: block;}
+}

@@ -1,0 +1,34 @@
+.posts {
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.icon {
+    color: tomato;
+    font-size: 3rem;
+    border: 2px solid tomato;
+    border-radius: 50%;
+}
+
+.noPost {
+    margin: auto;
+    text-align: center;
+    font-size: 3rem;
+    display: flex;
+    flex-flow: column nowrap;
+    &:first-child {
+        color: crimson;
+    }
+}
+
+@media screen and (min-width: 200px) {
+    .posts {
+        margin: 5px;
+    }
+}
+@media screen and (min-width: 576px) {
+    .posts {
+        margin: 20px;
+    }
+}

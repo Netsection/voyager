@@ -1,0 +1,49 @@
+.header {
+  margin-top: 60px;
+}
+
+.headerTitles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Lora", serif;
+  color: #ddd8d8;
+}
+
+
+.headerTitleSm {
+  position: absolute;
+}
+
+.headerTitleLg {
+  position: absolute;
+}
+
+.headerImg {
+  width: 100%;
+  height: 100%;
+  margin-top: -50px;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 200px) {
+  .headerTitleSm {
+    top: 13%;
+    font-size: 15px;
+  }
+  .headerTitleLg {
+    top: 15%;
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width: 676px) {
+  .headerTitleSm {
+    font-size: clamp(0.5rem, 20px, 1.3rem);
+    top: 28%;
+  }
+  .headerTitleLg {
+    top: 30%;
+    font-size: clamp(1rem,100px,5rem);
+  }
+}

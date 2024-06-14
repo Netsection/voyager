@@ -1,0 +1,155 @@
+.write {
+    padding-top: 50px;
+  }
+  
+  .writeImg {
+    margin-left: 150px;
+    width: 70vw;
+    height: 70vh;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  
+  .writeForm {
+    position: relative;
+  }
+  
+  .writeFormGroup {
+    margin-left: 150px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .writeIcon {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    border: 1px solid;
+    border-radius: 50%;
+    color: rgb(115, 112, 112);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .writeInput {
+    font-size: 30px;
+    padding: 20px;
+    width: 70vw;
+    margin: 0.5rem;
+    background-color: rgb(227, 225, 223);
+  }
+  
+  .writeInput::placeholder {
+    color: rgb(116, 113, 113);
+    font-weight: 400;
+  }
+  
+  .writeInput:focus {
+    outline-style: none;
+  }
+  
+  .writeText {
+    width: 70vw;
+    height: 30vh;
+    font-family: inherit;
+    font-size: 20px;
+  }
+  
+  .writeSubmit {
+    color: white;
+    background-color: teal;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    &:hover {
+      filter: brightness(120%);
+    }
+  }
+
+  .chatBot {
+    font-size: 3rem;
+  }
+  
+
+  .anchor {
+    text-decoration: none;
+    color: rgb(1, 67, 67);
+  }
+
+  @media screen and (min-width: 200px) {
+    .writeImg {
+      width: 70vw;
+      height: 40vh;
+      margin-left: 4.5rem;
+    }
+    .writeFormGroup {
+      margin-left: 3.5rem;
+    }
+    .writeSubmit {
+      margin-left: 10rem;
+    }
+    .chatBot {
+      margin-left: 10.5rem;
+    }
+  }
+
+  @media screen and (min-width: 450px) {
+    .writeImg {
+      margin-left: 100px;
+      width: 70vw;
+    height: 70vh;
+    }
+    .writeFormGroup {
+      margin-left: 100px;
+    }
+    .writeSubmit {
+      margin-left: 16rem;
+    }
+    .chatBot {
+      margin-left: 16.5rem;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .writeImg {
+      margin-left: 150px;
+      width: 70vw;
+    height: 70vh;
+    }
+    .writeFormGroup {
+      margin-left: 150px;
+    }
+    .writeSubmit {
+      margin-left: 27rem;
+    }
+    .chatBot {
+      margin-left: 27.5rem;
+    }
+  }
+
+  @media screen and (min-width: 940px) {
+    .writeImg {
+      margin-left: 150px;
+      width: 70vw;
+    height: 70vh;
+    }
+    .writeFormGroup {
+      margin-left: 150px;
+    }
+    .writeSubmit {
+      position: absolute;
+      top: 20px;
+      right: 50px;
+    }
+    .chatBot {
+      position: absolute;
+      top: 100px;
+      right: 61px;
+    }
+  }
