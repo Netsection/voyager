@@ -1,87 +1,184 @@
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./topbar.css";
-import { useContext } from "react";
-import { Context } from "../../context/Context";
+import { getCurrentUser, clearCurrentUser } from "../../utils/storage";
 
 export default function Topbar() {
-  const {user, dispatch} = useContext(Context);
+  const user = getCurrentUser();
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
-  const navigate = useNavigate()
-  const PF = "http://localhost:5000/images/"
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false);
+  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${searchQuery}`);
+    } else {
+      navigate("/");
+    }
+  };
+
+  const handleTagClick = (tag) => {
+    navigate(`/tags?tag=${tag}`);
+  };
 
   const handleLogout = () => {
-    dispatch({ type: "LOGOUT" })
-    navigate("/login")
-  }
+    clearCurrentUser();
+    navigate("/login");
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleCategoriesDropdown = () => {
+    setIsCategoriesDropdownOpen(!isCategoriesDropdownOpen);
+  };
+
+  const toggleMoreDropdown = () => {
+    setIsMoreDropdownOpen(!isMoreDropdownOpen);
+  };
+
+  const handleDestinationClick = (destination) => {
+    setIsDropdownOpen(false);
+    navigate(`/destination?place=${destination}`);
+  };
+
+  const handleCategoryClick = (category) => {
+    setIsCategoriesDropdownOpen(false);
+    navigate(`/category?name=${category}`);
+  };
+
+  const handleMoreClick = (page) => {
+    setIsMoreDropdownOpen(false);
+    navigate(`/${page}`);
+  };
+
+  const destinations = ["South America", "Australia", "Kenya", "South Africa"];
+  const categories = ["Travel Tips", "Activities"];
+  const moreOptions = ["bookmarks", "photos", "profile"];
 
   return (
     <div className="top">
-      <div className="topLeft">
-        <a href="https://www.facebook.com/TheDummyPage/">
-          <i className="topIcon fab fa-facebook-square"></i>
-        </a>
-        <a href="https://www.instagram.com/_mas.ila_/">
-          <i className="topIcon fab fa-instagram-square"></i>
-        </a>
-        <a href="https://www.pinterest.com/fakepinterest/">
-          <i className="topIcon fab fa-pinterest-square"></i>
-        </a>
-        <a href="https://twitter.com/_muuo11_">
-          <i className="topIcon fab fa-twitter-square"></i>
-        </a>
-      </div>
-      <div className="topCenter">
-        <ul className="topList">
-          <li className="topListItem">
-            <Link className="link" to="/">
-              HOME
-            </Link>
-          </li>
-          <li className="topListItem">ABOUT</li>
-          <li className="topListItem">CONTACT</li>
-          <li className="topListItem">
-            <Link className="link" to="/write">
-              WRITE
-            </Link>
-          </li>
-          {user && <li className="topListItem" onClick={handleLogout}>LOGOUT</li>}
-        </ul>
-      </div>
-      <div className="topRight">
-        {user ? (
-          <div>
-          <Link className="link" to="/settings">
-            <img
-              className="topImg"
-              src={PF + user.profilePic}
-              alt=""
+      <div className="topContainer">
+        <div className="left">
+          <span className="topTitle">Voyager</span>
+        </div>
+        <div className="center">
+          <ul className="topList">
+            <li className="topMostListContainer">
+              <Link className="link" to="/">
+                HOME
+              </Link>
+            </li>
+            <li className="topMostListContainer" onClick={toggleDropdown}>
+              Destination <i className={`arrow ${isDropdownOpen ? "up" : "down"}`}></i>
+              {isDropdownOpen && (
+                <ul className="dropdownMenu">
+                  {destinations.map((destination) => (
+                    <li
+                      key={destination}
+                      className="dropdownItem"
+                      onClick={() => handleDestinationClick(destination)}
+                    >
+                      {destination}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+            <li className="topMostListContainer" onClick={toggleCategoriesDropdown}>
+              Categories <i className={`arrow ${isCategoriesDropdownOpen ? "up" : "down"}`}></i>
+              {isCategoriesDropdownOpen && (
+                <ul className="dropdownMenu">
+                  {categories.map((category) => (
+                    <li
+                      key={category}
+                      className="dropdownItem"
+                      onClick={() => handleCategoryClick(category)}
+                    >
+                      {category}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+            <li className="topMostListContainer">
+              <Link className="link" to="/write">
+                CREATE
+              </Link>
+            </li>
+            <li className="topMostListContainer" onClick={toggleMoreDropdown}>
+              More <i className={`arrow ${isMoreDropdownOpen ? "up" : "down"}`}></i>
+              {isMoreDropdownOpen && (
+                <ul className="dropdownMenu">
+                  {moreOptions.map((option) => (
+                    <li
+                      key={option}
+                      className="dropdownItem"
+                      onClick={() => handleMoreClick(option)}
+                    >
+                      {option.charAt(0).toUpperCase() + option.slice(1)}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          </ul>
+        </div>
+        <div className="right">
+          <form className="Search" onSubmit={handleSearch}>
+            <button type="submit" className="searchButton">
+              <i className="topSearchIcon fas fa-search"></i>
+            </button>
+            <input
+              className="searchInput"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search..."
             />
-          </Link>
-          <div className="Search">
-            <i className="topSearchIcon fas fa-search"></i>
-            <input className="searchInput" type="text" />
+          </form>
+          <div className="mainChatBot">
+            <a className="topAnchor" href="https://travelblogpy-xu5up8uddabzke3il6uk8e.streamlit.app/">
+              <i className="fa-solid fa-robot"></i>
+            </a>
           </div>
-          </div>
-        ) : (
-          currentPath !== "/login" &&
-          currentPath !== "/register" && (
-            <div className="topRight">
+          {user ? (
+            <>
+              <Link className="link" to="/settings">
+                <img
+                  className="topImg"
+                  src={user.profile || "https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"}
+                  alt="user"
+                />
+              </Link>
+              <li className="topListItem logOut" onClick={handleLogout}>
+                LOGOUT
+              </li>
+            </>
+          ) : (
+            currentPath !== "/login" &&
+            currentPath !== "/register" && (
               <ul className="topList">
-                <li className="topListItem">
-                  <Link className="link" to="/login">
+                <li className="topMostListContainer">
+                  <Link className="loginLink" to="/login">
                     LOGIN
                   </Link>
                 </li>
-                <li className="topListItem">
-                  <Link className="link" to="/register">
+                <li className="topMostListContainer">
+                  <Link className="registerLink" to="/register">
                     REGISTER
                   </Link>
                 </li>
               </ul>
-            </div>
-          )
-        )}
+            )
+          )}
+        </div>
       </div>
     </div>
   );
